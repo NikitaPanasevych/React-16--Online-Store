@@ -1,0 +1,14 @@
+.CurrencyDropdownElement {
+    background-color: white;
+    width: 5em;
+    height: 3em;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        
+}
+
+.CurrencyDropdownElement:hover {
+    background-color: #EAEAEA;
+}

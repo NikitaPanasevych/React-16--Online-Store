@@ -1,0 +1,49 @@
+.Menu {
+    height: 10vh;
+    width: 100vw;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.Categories{
+    position: absolute;
+    left: 6em;
+    top: 25%;
+    cursor: pointer;
+}
+
+li{
+    display: inline;
+    padding: 1em;
+    font-size: 30px;
+}
+
+.StoreIcon{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.CurrencyBtn {
+    position: absolute;
+    left: 85%;
+    top: 25%;
+    cursor: pointer;
+}
+
+.CartBtn {
+    position: absolute;
+    left: 90%;
+    top: 31%;
+    cursor: pointer;
+}
+
+.CurrencyDropdown{
+    transform: translate(-1.5em,0.35em);
+    background-color: white;
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+}

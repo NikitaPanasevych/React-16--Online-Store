@@ -1,0 +1,31 @@
+.Card {
+    width: 10em;
+    font-size: 40px;
+    height: 12em;
+    padding: 0.5em;
+    margin: 1em;
+}
+.Card:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.photo{
+    width: 10em;
+    height: 10em;
+}
+
+.Description {
+    margin-bottom: 0.1em;
+    margin-top: 0.25em;
+    font-size: 20px;
+}
+
+.Price {
+    margin-top: 0.25em;
+    font-size: 20px;
+}
+
+.CircleIcon {
+    transform: translate(7.5em, -3.25em);
+}
