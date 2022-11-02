@@ -22,8 +22,8 @@ export default class App extends React.Component {
       }
     }
 
-    componentDidMount(){
-      apolloClient
+     query = async () => {
+     let data = await apolloClient
       .query({
         query: gql`
         query {
@@ -59,8 +59,12 @@ export default class App extends React.Component {
         }
         `,
       })
-      .then(result => this.setState({data:result.data.categories})
-      );
+      .then(result => result)
+      this.setState({data: data.data.categories})
+    }
+
+    componentDidMount(){
+      this.query()
     }
 
     handleClick = (element) => {
@@ -80,15 +84,18 @@ export default class App extends React.Component {
             <Switch>
               <Route exact path='/'>
                 { 
-                <PLP data={this.state.data} chosenCategory={this.state.chosenCategory} />
+                 <PLP 
+                 data={this.state.data} 
+                 chosenCategory={this.state.chosenCategory} 
+                 handleClick={this.handleClick}/>
                 }
               </Route>
-              <Route exact path={"/:id"}>
+              {<Route exact path={"/:id"}>
                 <PDP data={this.state.openedItemDescription} />
-              </Route>
+              </Route>}
             </Switch>
           </Router>
-          <Menu data={this.state.data} handleCategoryChange={this.handleCategoryChange} />
+          {<Menu data={this.state.data} handleCategoryChange={this.handleCategoryChange} />}
         </>
       )
     }
