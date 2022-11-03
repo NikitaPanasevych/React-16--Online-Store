@@ -54,5 +54,10 @@
 .ProductDescr{
     transform: translate(70px, -0px);
     width: 25em;
-    background-color: #5ECE7B;
+}
+
+.ProductPrice{
+    font: bold;
+    font-size: 2em;
+    margin-top: 0;
 }
