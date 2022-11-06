@@ -13,9 +13,11 @@ export default class PLP extends React.Component {
   }
 
   static getDerivedStateFromProps(props){
-    console.log(props.data[props.chosenCategory])
-    return{data: props.data[props.chosenCategory]}
+    return({
+      data: props.data[props.chosenCategory]
+    })
 }
+
 
 
   handleClick = (clickedItem) => {
@@ -32,8 +34,8 @@ export default class PLP extends React.Component {
                       <ProductCard 
                     id={element.id}
                     name={element.name}
-                    price={element.prices.amount}
-
+                    price={element.prices[this.props.chosenCurrency].amount}
+                    label={element.prices[this.props.chosenCurrency].currency.symbol}
                     imageUrl={element.gallery[0]}
                     handleClick={this.handleClick}
                         />)}

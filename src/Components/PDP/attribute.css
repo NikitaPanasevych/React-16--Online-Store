@@ -1,0 +1,22 @@
+.attribute {
+    background-color: white;
+    border-style: solid;
+    border-width: 1.5px;
+    display: flex;
+    width: 3.6em;
+    height: 2.8em;
+    margin-right: 1em;
+    cursor: pointer;
+    margin-top: 0.3em;
+}
+
+.attribure:hover {
+    background-color: #F8EDE3;
+}
+
+.attribute > h1{
+    margin: auto;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 300;
+}

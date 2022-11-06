@@ -1,7 +1,7 @@
 .Menu {
     height: 10vh;
     width: 100vw;
-    background-color: white;
+    background-color: antiquewhite;
     position: fixed;
     top: 0;
     left: 0;
@@ -30,8 +30,10 @@ li{
 
 .CurrencyBtn {
     position: absolute;
+    transform: translate(0%, -20%);
+    font-size: 1.5em;
     left: 85%;
-    top: 25%;
+    top: 40%;
     cursor: pointer;
 }
 

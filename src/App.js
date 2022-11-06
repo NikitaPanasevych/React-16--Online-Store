@@ -18,7 +18,8 @@ export default class App extends React.Component {
       this.state= {
         data: [],
         chosenCategory: 0,
-        openedItemDescription: []
+        openedItemDescription: [],
+        chosenCurrency: 3
       }
     }
 
@@ -73,8 +74,12 @@ export default class App extends React.Component {
       })
     }
 
+    handleCurrencyChange = (element) => {
+      this.setState({chosenCurrency: element})
+    }
+
     handleCategoryChange = (element) => {
-      this.setState({chosenCategory: element}, ()=>console.log(this.state.data[this.state.chosenCategory]))
+      this.setState({chosenCategory: element})
     }
 
     render(){
@@ -84,18 +89,27 @@ export default class App extends React.Component {
             <Switch>
               <Route exact path='/'>
                 { 
-                 <PLP 
-                 data={this.state.data} 
-                 chosenCategory={this.state.chosenCategory} 
-                 handleClick={this.handleClick}/>
+                <PLP 
+                  data={this.state.data} 
+                  chosenCategory={this.state.chosenCategory} 
+                  handleClick={this.handleClick}
+                  chosenCurrency={this.state.chosenCurrency}
+                 />
                 }
               </Route>
               {<Route exact path={"/:id"}>
-                <PDP data={this.state.openedItemDescription} />
+                <PDP 
+                data={this.state.openedItemDescription} 
+                chosenCurrency={this.state.chosenCurrency}  
+                />
               </Route>}
             </Switch>
           </Router>
-          {<Menu data={this.state.data} handleCategoryChange={this.handleCategoryChange} />}
+          {<Menu 
+          data={this.state.data} 
+          handleCurrencyChange={this.handleCurrencyChange} 
+          handleCategoryChange={this.handleCategoryChange} 
+          />}
         </>
       )
     }
