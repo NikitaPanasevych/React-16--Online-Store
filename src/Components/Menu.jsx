@@ -74,7 +74,7 @@ export default class Menu extends React.Component{
                     </svg>
                 </div>
                 {this.state.miniCart &&
-                        <MiniCart />
+                        <MiniCart cartLength={this.props.cartLength} />
                     }
             </div>:null}
             </>

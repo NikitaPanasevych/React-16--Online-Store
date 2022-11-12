@@ -2,15 +2,23 @@ import React from "react";
 import "./Cart.css"
 
 export default class Cart extends React.Component{
-    state = {   data:[]    }
+    state = {   
+        data:[],
+        cartItems:[]
+        }
 
     static getDerivedStateFromProps(props){
-        return{data: props.data}
+        console.log(props.cartItems)
+        return{data: props.data, cartItems: props.cartItems}
       }
 
     render(){
         return(
-        <h1>CART</h1>
+        <>{this.state.data?
+            <div className="Cart">
+                <h1>Cart</h1>
+            </div>:null}
+        </>
         )
     }
 }

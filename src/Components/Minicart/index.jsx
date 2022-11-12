@@ -7,7 +7,7 @@ export default class MiniCart extends React.Component{
         return(
         <>
                 <div className="MiniCart">
-                    <p><strong>My Bag:</strong>{" 1 "}Items</p>
+                    <p><strong>My Bag:</strong> { this.props.cartLength} Items</p>
                     <div className="totalContainer">
                         <p>
                             <strong>Total:</strong>
