@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route,  } from 'react-router-dom';
 import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
 import Cart from './Pages/Cart';
-import e from 'express';
 
 
 
@@ -17,14 +16,17 @@ const apolloClient = new ApolloClient({
 export default class App extends React.Component {
     constructor(props){
       super(props)
-      this.state= {
+      this.state = {
         data: [],
         chosenCategory: 0,
         openedItemDescription: [],
         chosenCurrency: 3,
-        cartItems: []
+        cartItems: [],
+        test: []
       }
     }
+
+ 
 
      query = async () => {
      let data = await apolloClient
@@ -68,18 +70,23 @@ export default class App extends React.Component {
     }
 
     componentDidMount(){
-      this.query()
+      this.query();
+      this.setState({...this.state.test, test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
-    addToCart = (cartItem, attributes) => {
-      this.setState({cartItems: [
-        ...this.state.cartItems.filter(element => 
-          element !== cartItem /*&& element.attributes[0].selectedAttributeVal !== attributes[0].selectedAttributeVal*/),
+    addToCart = async (cartItem, attributes) => {
+      if(!JSON.parse(localStorage.getItem('cartItem')).find((elem)=>elem.name === cartItem)) 
+      {localStorage.setItem("cartItem", JSON.stringify(
+        [ 
+        ...this.state.test, 
         {
           name: cartItem,
           attributes: attributes
         }
-        ]})
+        ]
+      ))}
+        console.log(JSON.parse(localStorage.getItem('cartItem')))
+        this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
     handleClick = (element) => {
@@ -97,7 +104,6 @@ export default class App extends React.Component {
     }
 
     render(){
-      console.log(this.state.data)
       return(
         <>
           <Router>
@@ -112,7 +118,8 @@ export default class App extends React.Component {
               </Route>
               <Route exact path={"/cart"}>
                 <Cart
-                  data={this.state.cartItems}
+                  data={this.state.data[0]}
+                  cartItems={this.state.test}
                 />
               </Route>
               <Route exact path={"/:id"}>
@@ -125,7 +132,8 @@ export default class App extends React.Component {
             </Switch>
           </Router>
           <Menu 
-            data={this.state.data} 
+            data={this.state.data}
+            cartLength={this.state.test.length} 
             handleCurrencyChange={this.handleCurrencyChange} 
             handleCategoryChange={this.handleCategoryChange} 
           />
