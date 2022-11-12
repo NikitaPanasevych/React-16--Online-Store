@@ -1,7 +1,7 @@
 .Menu {
     height: 10vh;
     width: 100vw;
-    background-color: antiquewhite;
+    background-color: white;
     position: fixed;
     top: 0;
     left: 0;
@@ -37,6 +37,13 @@ li{
     cursor: pointer;
 }
 
+.CurrencyBtn > svg {
+    position: absolute;
+    scale: 1.3;
+    left: -0.5em;
+    top: -0.1em;
+}
+
 .CartBtn {
     position: absolute;
     left: 90%;
@@ -45,6 +52,7 @@ li{
 }
 
 .CurrencyDropdown{
+    position: absolute;
     transform: translate(-1.5em,0.35em);
     background-color: white;
     filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));

@@ -40,11 +40,14 @@ export default class Menu extends React.Component{
                     id={index} 
                     handleCategoryChange={this.handleCategoryChange} />)}
                 </div>
-                <div className="StoreIcon">
+                <a href="/" className="StoreIcon">
                     <img src={storeIcon} alt="Store Icon" />
-                </div>
+                </a>
                 <div className="CurrencyBtn"onClick={()=>this.setState({currencyDropdown: !this.state.currencyDropdown})}>
-                        AAA
+                        {this.state.chosenCurrency}
+                        <svg width="39" height="30" viewBox="0 0 39 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M32 16.5L35 19.5L38 16.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     {
                     this.state.currencyDropdown && 
                         (<div className="CurrencyDropdown" onClick={()=>this.setState({currencyDropdown: false})}>

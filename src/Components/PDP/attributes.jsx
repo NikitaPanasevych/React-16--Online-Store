@@ -1,6 +1,7 @@
 import React from "react";
 import "./attribute.css"
 
+
 export default class Attribute extends React.Component{
     constructor(props){
         super(props) 
@@ -10,16 +11,27 @@ export default class Attribute extends React.Component{
     }
 
     changeAttribute = () => {
-        this.props.changeAttribute(this.props.id)
+        this.props.changeAttribute(this.props.value, this.props.attribute)
     }
 
-    render(){  
-        let className = "attribute"
+    render(){
+        const styles = {
+            colorContainerStyle: {
+                backgroundColor: this.props.color,
+            }
+          };
+        const { colorContainerStyle } = styles;  
         return(
         <>
-            <div onClick={this.changeAttribute} className={className}>
+            {this.props.colorAttr ?
+            <div  className="selected">
+                <div style={colorContainerStyle} onClick={this.changeAttribute} className="color-attribute"></div> 
+            </div>
+            : 
+            <div onClick={this.changeAttribute} className="attribute">
                 <h1>{this.props.value}</h1>
             </div>
+            }
         </>
         )
     }

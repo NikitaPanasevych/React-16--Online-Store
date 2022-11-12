@@ -1,22 +1,50 @@
+.color-attribute {
+    background-color: white;
+    border-style: solid;
+    border-width: 1.5px;
+    width: 3em;
+    display: flex;
+    height: 3em;
+    cursor: pointer;
+    transform: translate(3.4%, 3%);
+}
+
 .attribute {
     background-color: white;
     border-style: solid;
     border-width: 1.5px;
-    display: flex;
-    width: 3.6em;
-    height: 2.8em;
+    width: 3em;
     margin-right: 1em;
+    display: flex;
+    height: 3em;
     cursor: pointer;
-    margin-top: 0.3em;
+    transform: translate(-3.2%, 3%);
 }
+
 
 .attribure:hover {
     background-color: #F8EDE3;
 }
 
-.attribute > h1{
+h1{
     margin: auto;
     text-align: center;
     font-size: 1em;
     font-weight: 300;
 }
+
+.selected > h1{
+    margin: auto;
+}
+
+.selected{
+    width: 3.4em;
+    height: 3.4em;
+    position: relative;
+    border-color: #5ECE7B;
+    border-width: 2px;
+    border-style: solid;
+    margin-right: 1em;
+    display: flex;
+}
+

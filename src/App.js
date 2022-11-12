@@ -4,6 +4,8 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { BrowserRouter as Router, Switch, Route,  } from 'react-router-dom';
 import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
+import Cart from './Pages/Cart';
+import e from 'express';
 
 
 
@@ -19,7 +21,8 @@ export default class App extends React.Component {
         data: [],
         chosenCategory: 0,
         openedItemDescription: [],
-        chosenCurrency: 3
+        chosenCurrency: 3,
+        cartItems: []
       }
     }
 
@@ -68,6 +71,17 @@ export default class App extends React.Component {
       this.query()
     }
 
+    addToCart = (cartItem, attributes) => {
+      this.setState({cartItems: [
+        ...this.state.cartItems.filter(element => 
+          element !== cartItem /*&& element.attributes[0].selectedAttributeVal !== attributes[0].selectedAttributeVal*/),
+        {
+          name: cartItem,
+          attributes: attributes
+        }
+        ]})
+    }
+
     handleClick = (element) => {
       this.setState({ 
         openedItemDescription: this.state.data[this.state.chosenCategory].products.filter((val)=>val.id == element)
@@ -83,33 +97,38 @@ export default class App extends React.Component {
     }
 
     render(){
+      console.log(this.state.data)
       return(
         <>
           <Router>
             <Switch>
               <Route exact path='/'>
-                { 
                 <PLP 
                   data={this.state.data} 
                   chosenCategory={this.state.chosenCategory} 
                   handleClick={this.handleClick}
                   chosenCurrency={this.state.chosenCurrency}
                  />
-                }
               </Route>
-              {<Route exact path={"/:id"}>
-                <PDP 
-                data={this.state.openedItemDescription} 
-                chosenCurrency={this.state.chosenCurrency}  
+              <Route exact path={"/cart"}>
+                <Cart
+                  data={this.state.cartItems}
                 />
-              </Route>}
+              </Route>
+              <Route exact path={"/:id"}>
+                <PDP 
+                  data={this.state.openedItemDescription} 
+                  chosenCurrency={this.state.chosenCurrency}
+                  addToCart={this.addToCart}  
+                />
+              </Route>
             </Switch>
           </Router>
-          {<Menu 
-          data={this.state.data} 
-          handleCurrencyChange={this.handleCurrencyChange} 
-          handleCategoryChange={this.handleCategoryChange} 
-          />}
+          <Menu 
+            data={this.state.data} 
+            handleCurrencyChange={this.handleCurrencyChange} 
+            handleCategoryChange={this.handleCategoryChange} 
+          />
         </>
       )
     }

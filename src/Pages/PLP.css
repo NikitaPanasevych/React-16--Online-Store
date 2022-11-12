@@ -21,4 +21,6 @@
 .Main{
     position: absolute;
     top:10vh;
+    padding-bottom: 10em;
+    width: 100%;
 }
