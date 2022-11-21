@@ -56,6 +56,8 @@
 
 .ProductPrice{
     font: bold;
+    font-family: "Raleway";
+    font-weight: 700;
     font-size: 2em;
     margin-top: 0;
 }

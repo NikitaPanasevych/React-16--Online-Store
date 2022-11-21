@@ -14,24 +14,20 @@ export default class Attribute extends React.Component{
         this.props.changeAttribute(this.props.value, this.props.attribute)
     }
 
-    render(){
-        const styles = {
-            colorContainerStyle: {
-                backgroundColor: this.props.color,
-            }
-          };
-        const { colorContainerStyle } = styles;  
+    render(){ 
         return(
         <>
+            <>
             {this.props.colorAttr ?
             <div  className="selected">
-                <div style={colorContainerStyle} onClick={this.changeAttribute} className="color-attribute"></div> 
+                <div style={{backgroundColor: this.props.color}} onClick={this.changeAttribute} className="color-attribute"></div> 
             </div>
             : 
             <div onClick={this.changeAttribute} className="attribute">
                 <h1>{this.props.value}</h1>
             </div>
             }
+            </>
         </>
         )
     }

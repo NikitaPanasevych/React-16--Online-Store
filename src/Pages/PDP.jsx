@@ -28,7 +28,24 @@ export default class PDP extends React.Component{
       }
 
       addToCart = () => {
-        this.props.addToCart(this.props.data[0].id, this.state.selectedAttributes)
+        this.props.addToCart(
+            this.props.data[0].brand,
+            this.props.data[0].name,
+            this.props.data[0].attributes,
+            this.props.data[0].gallery,
+            this.props.data[0].prices,
+            this.state.selectedAttributes.sort((a, b) => {
+            let fa = a.selectedAttribute.toLowerCase(),
+                fb = b.selectedAttribute.toLowerCase();
+        
+            if (fa < fb) {
+                return -1;
+            }
+            if (fa > fb) {
+                return 1;
+            }
+            return 0;
+        }))
       }
 
       changeImage = (clickedImageId) => {
@@ -44,7 +61,7 @@ export default class PDP extends React.Component{
                 selectedAttribute: clickedAttr
             }
         ]
-        })
+        })  
       }
 
 

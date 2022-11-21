@@ -1,9 +1,10 @@
-import "./menuElements/Menu.css"
+import "./MenuComponents/Menu.css"
 import React from "react";
-import CurrencyDropdown from "./menuElements/CurrencyDropdown";
+import CurrencyDropdown from "./MenuComponents/CurrencyDropdown";
 import storeIcon from "./Icons/a-logo.svg"
-import Category from "./menuElements/Category";
-import MiniCart from "./Minicart";
+import Category from "./MenuComponents/Category";
+import MiniCart from "./Minicart/miniCart";
+import OutsideAlerter from "./MenuComponents/OutsideAlert";
 
 
 export default class Menu extends React.Component{
@@ -13,12 +14,18 @@ export default class Menu extends React.Component{
             data: [],
             currencyDropdown: false,
             miniCart: false,
-            chosenCurrency: 0
+            chosenCurrency: 0,
+            chosenCategory: 0
         }
     }
 
     handleCategoryChange = (clickedItem) => {
+        this.setState({chosenCategory: clickedItem})
         this.props.handleCategoryChange(clickedItem)
+    }
+
+    handleClickOutside = () =>{
+        this.setState({currencyDropdown: false, miniCart: false})
     }
 
     handleCurrencyChange = (clickedItem) => {
@@ -37,20 +44,26 @@ export default class Menu extends React.Component{
                 <div className="Categories" >
                     {this.state.data.map((element, index) =>
                     <Category name={element.name} 
-                    id={index} 
+                    id={index}
+                    chosenCategory={this.state.chosenCategory} 
                     handleCategoryChange={this.handleCategoryChange} />)}
                 </div>
                 <a href="/" className="StoreIcon">
                     <img src={storeIcon} alt="Store Icon" />
                 </a>
                 <div className="CurrencyBtn"onClick={()=>this.setState({currencyDropdown: !this.state.currencyDropdown})}>
-                        {this.state.chosenCurrency}
+                        {
+                            (this.state.chosenCurrency && this.state.data)?
+                            <div>{this.state.data[0].products[0].prices[this.state.chosenCurrency].currency.symbol}</div>
+                            :null
+                        }
                         <svg width="39" height="30" viewBox="0 0 39 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M32 16.5L35 19.5L38 16.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     {
                     this.state.currencyDropdown && 
-                        (<div className="CurrencyDropdown" onClick={()=>this.setState({currencyDropdown: false})}>
+                        (<OutsideAlerter handleClickOutside={this.handleClickOutside}>
+                            <div className="CurrencyDropdown" onClick={()=>this.setState({currencyDropdown: false})}>
                             {
                                 this.state.data[0].products[0].prices.map((element, index) => 
                                     <CurrencyDropdown
@@ -61,7 +74,9 @@ export default class Menu extends React.Component{
                                     />
                                 )
                             }
-                        </div>)
+                        </div>
+                        </OutsideAlerter>
+                        )
                     }
                     
                     
@@ -72,9 +87,15 @@ export default class Menu extends React.Component{
                         <path d="M8.44437 13.9814C7.2443 13.9814 6.25488 14.9276 6.25488 16.0751C6.25488 17.2226 7.24439 18.1688 8.44437 18.1688C9.64445 18.1696 10.6339 17.2234 10.6339 16.0757C10.6339 14.928 9.64436 13.9812 8.44437 13.9812V13.9814ZM8.44437 16.9011C7.9599 16.9011 7.58071 16.5385 7.58071 16.0752C7.58071 15.6119 7.9599 15.2493 8.44437 15.2493C8.92885 15.2493 9.30804 15.6119 9.30804 16.0752C9.30722 16.5188 8.90748 16.9011 8.44437 16.9011Z" fill="#43464E"/>
                         <path d="M15.6875 13.9814C14.4875 13.9814 13.498 14.9277 13.498 16.0752C13.498 17.2226 14.4876 18.1689 15.6875 18.1689C16.8875 18.1689 17.877 17.2226 17.877 16.0752C17.8565 14.9284 16.8875 13.9814 15.6875 13.9814ZM15.6875 16.9011C15.2031 16.9011 14.8239 16.5385 14.8239 16.0752C14.8239 15.612 15.2031 15.2493 15.6875 15.2493C16.172 15.2493 16.5512 15.612 16.5512 16.0752C16.5512 16.5188 16.1506 16.9011 15.6875 16.9011Z" fill="#43464E"/>
                     </svg>
+                    <div>
+                        {this.props.cartLength}
+                    </div>
                 </div>
                 {this.state.miniCart &&
-                        <MiniCart cartLength={this.props.cartLength} />
+                        <MiniCart
+                        handleClickOutside={this.handleClickOutside} 
+                        cartLength={this.props.cartLength} 
+                        />
                     }
             </div>:null}
             </>

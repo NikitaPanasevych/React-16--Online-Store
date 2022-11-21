@@ -6,6 +6,13 @@
     background-color: white;
 }
 
+.background{
+    width: 200vh;
+    height: 200vw;
+    opacity: 1;
+    background-color: rgba(57, 55, 72, 0.22);;
+}
+
 .MiniCart > p{
     font-size: 1.2rem;
     padding-left: 1.5rem;
@@ -35,9 +42,14 @@
 .CheckoutBtns > button{
     width: 9rem;
     margin: auto;
-    height: 2.5rem;
+    height: 2.75rem;
     font-size: large;
-    background-color: aliceblue;
-    border: 1rem;
+    background-color: white;
+    border-width: 0.1em;
     cursor: pointer;
+}
+.CheckoutBtns > button:last-child{
+    background-color: #5ECE7B;
+    color: white;
+    border: white;
 }

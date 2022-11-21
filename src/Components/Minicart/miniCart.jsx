@@ -1,11 +1,19 @@
 import React from "react";
-import "./index.css";
+import "./miniCart.css";
+import OutsideAlerter from "../MenuComponents/OutsideAlert";
 
 
 export default class MiniCart extends React.Component{
+
+    handleClickOutside = () =>{
+        this.props.handleClickOutside();
+    }
+
     render(){
         return(
         <>
+            <div className="background"></div>
+            <OutsideAlerter handleClickOutside={this.handleClickOutside}>
                 <div className="MiniCart">
                     <p><strong>My Bag:</strong> { this.props.cartLength} Items</p>
                     <div className="totalContainer">
@@ -16,12 +24,12 @@ export default class MiniCart extends React.Component{
                     </div>
                     <div className="CheckoutBtns">
                         <button >
-                            <a href="/cart">Link</a>
+                            <a href="/cart">View bag</a>
                         </button>
                         <button >Checkout</button>
                     </div>
-                </div>  
-
+                </div>
+            </OutsideAlerter>  
         </>
         )
     }

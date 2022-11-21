@@ -71,28 +71,63 @@ export default class App extends React.Component {
 
     componentDidMount(){
       this.query();
+      localStorage.setItem('cartItem', JSON.stringify([]))
       this.setState({...this.state.test, test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
-    addToCart = async (cartItem, attributes) => {
-      if(!JSON.parse(localStorage.getItem('cartItem')).find((elem)=>elem.name === cartItem)) 
+    addToCart = async (cartItemId,  cartItemDescr, cartItemAttributes, cartItemGallery, cartItemPrices, chosenAttributes) => {
+      if(
+        !JSON.parse(localStorage.getItem('cartItem')).find((elem)=>elem.name === cartItemId)
+          ||
+        !JSON.parse(localStorage.getItem('cartItem')).find(
+          elem =>JSON.stringify(elem.chosenAttributes) === JSON.stringify(chosenAttributes)
+          )
+        )
       {localStorage.setItem("cartItem", JSON.stringify(
         [ 
         ...this.state.test, 
         {
-          name: cartItem,
-          attributes: attributes
+          name: cartItemId,
+          description: cartItemDescr,
+          allAttributes: cartItemAttributes,
+          chosenAttributes: chosenAttributes,
+          gallery: cartItemGallery,
+          prices: cartItemPrices,
+          count: 1
         }
         ]
       ))}
-        console.log(JSON.parse(localStorage.getItem('cartItem')))
+        /*console.log(JSON.parse(localStorage.getItem('cartItem')))*/
         this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
     handleClick = (element) => {
       this.setState({ 
-        openedItemDescription: this.state.data[this.state.chosenCategory].products.filter((val)=>val.id == element)
+        openedItemDescription: this.state.data[this.state.chosenCategory].products.filter((val)=>val.id === element)
       })
+    }
+
+    addToCartFromPLP = (itemId) => {
+      const item = this.state.data[0].products.filter(elem=>elem.attributes.length === 0 && elem.id === itemId)
+      if(item.length !== 0 && !JSON.parse(localStorage.getItem('cartItem')).find((elem)=>elem.description === itemId))
+      {
+        console.log(item[0].id)
+        localStorage.setItem("cartItem", JSON.stringify(
+          [ 
+          ...this.state.test, 
+          {
+            name: item[0].brand,
+            description: item[0].id,
+            allAttributes: [],
+            chosenAttributes: [],
+            gallery: item[0].gallery,
+            prices: item[0].prices,
+            count: 1
+          }
+          ]
+        ))
+        this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
+      }
     }
 
     handleCurrencyChange = (element) => {
@@ -114,12 +149,14 @@ export default class App extends React.Component {
                   chosenCategory={this.state.chosenCategory} 
                   handleClick={this.handleClick}
                   chosenCurrency={this.state.chosenCurrency}
+                  addToCartFromPLP={this.addToCartFromPLP}
                  />
               </Route>
               <Route exact path={"/cart"}>
                 <Cart
                   data={this.state.data[0]}
                   cartItems={this.state.test}
+                  chosenCurrency={this.state.chosenCurrency}
                 />
               </Route>
               <Route exact path={"/:id"}>

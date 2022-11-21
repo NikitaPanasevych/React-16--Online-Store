@@ -18,7 +18,9 @@ export default class PLP extends React.Component {
     })
 }
 
-
+  addToCartFromPLP = (itemId) => {
+    this.props.addToCartFromPLP(itemId)
+  }
 
   handleClick = (clickedItem) => {
     this.props.handleClick(clickedItem)
@@ -38,6 +40,7 @@ export default class PLP extends React.Component {
                     label={element.prices[this.props.chosenCurrency].currency.symbol}
                     imageUrl={element.gallery[0]}
                     handleClick={this.handleClick}
+                    addToCartFromPLP={this.addToCartFromPLP}
                         />)}
                 </div>
             </div>:null}
