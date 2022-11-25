@@ -1,9 +1,10 @@
 .ItemDescriptionPage{
     position: absolute;
+    right: 0;
     display: flex;
     width: 100vw;
-    height: 90vh;
-    top: 10vh;
+    height: 87vh;
+    top: 8vh;
     padding-top: 5vh;
     justify-content: center;
 }

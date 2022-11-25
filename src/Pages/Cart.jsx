@@ -5,19 +5,26 @@ import "./Cart.css"
 export default class Cart extends React.Component{
     state={
         cartItems: [],
-        quantity: {}
+        total: 0,
+        symbol: "",
+        quantity: 0
     }
 
-    static getDerivedStateFromProps(props){
-        return{cartItems: props.cartItems}
+    static getDerivedStateFromProps(props, state){
+        return{
+            cartItems: props.cartItems,
+            /*symbol: props.cartItems[0].prices[props.chosenCurrency].currency.symbol,*/
+            total: props.cartItems.map(e=>e.prices[props.chosenCurrency].amount * e.count).reduce((total, value)=>total=total+value, 0),
+            quantity: props.cartItems.map(e=>e.count).reduce((total, value)=>total=total+value, 0)
+        }
     }
 
-    incrementQuantity = (clickedItem) => {
-        this.props.incrementQuantity(clickedItem)
+    incrementQuantity = (name, attributes) => {
+        this.props.incrementQuantity(name, attributes)
     }
 
-    decrementQuantity = (clickedItem) => {
-        this.props.decrementQuantity(clickedItem)
+    decrementQuantity = (name, attributes) => {
+        this.props.decrementQuantity(name, attributes)
     }
 
     render(){
@@ -27,7 +34,7 @@ export default class Cart extends React.Component{
                 <h1>CART</h1>
                 <div className="CartContainer">
                 {this.state.cartItems?
-                    /*JSON.parse(localStorage.getItem("cartItem"))*/this.state.cartItems.map(
+                    this.state.cartItems.map(
                         (element, index)=>
                         <>
                                 <hr />
@@ -38,11 +45,12 @@ export default class Cart extends React.Component{
                                     chosenAttributes={element.chosenAttributes}
                                     prices={element.prices}
                                     gallery={element.gallery}
+                                    count={element.count}
                                     chosenCurrency={this.props.chosenCurrency}
-                                    itemQuantity={element.itemQuantity}
                                     id={index}
+                                    update={this.update}
                                     incrementQuantity={this.incrementQuantity}
-                                    decrementQuantity={this.decrementQuantity} 
+                                    decrementQuantity={this.decrementQuantity}
                                 />
                         </>
                         ):null
@@ -50,9 +58,15 @@ export default class Cart extends React.Component{
                 <hr />
                 </div>
                 <footer>
-                    <p>Tax 21%: <strong>taxAmount</strong></p>
-                    <p>Quantity: <strong>amount</strong></p>
-                    <p>Total: <strong>totalAmount</strong></p>
+                    <p>Tax 21%: <strong>
+                        {   
+                            Math.round(this.state.total * 0.21 * 100) / 100
+                        } {this.state.symbol}
+                    </strong></p>
+                    <p>Quantity: <strong>{this.state.quantity}</strong></p>
+                    <p>Total: <strong>
+                        {Math.round(this.state.total * 100)/100} {this.state.symbol}
+                    </strong></p>
                     <button className="">Order</button>
                 </footer>
             </div>

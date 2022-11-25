@@ -20,9 +20,9 @@ export default class App extends React.Component {
         data: [],
         chosenCategory: 0,
         openedItemDescription: [],
-        chosenCurrency: 3,
-        cartItems: [],
-        test: []
+        chosenCurrency: 0,
+        test: [],
+        cartItems: []
       }
     }
 
@@ -71,7 +71,7 @@ export default class App extends React.Component {
 
     componentDidMount(){
       this.query();
-      localStorage.setItem('cartItem', JSON.stringify([]))
+      /*localStorage.setItem('cartItem', JSON.stringify([]))*/
       this.setState({...this.state.test, test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
@@ -97,7 +97,6 @@ export default class App extends React.Component {
         }
         ]
       ))}
-        /*console.log(JSON.parse(localStorage.getItem('cartItem')))*/
         this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
@@ -111,7 +110,6 @@ export default class App extends React.Component {
       const item = this.state.data[0].products.filter(elem=>elem.attributes.length === 0 && elem.id === itemId)
       if(item.length !== 0 && !JSON.parse(localStorage.getItem('cartItem')).find((elem)=>elem.description === itemId))
       {
-        console.log(item[0].id)
         localStorage.setItem("cartItem", JSON.stringify(
           [ 
           ...this.state.test, 
@@ -130,6 +128,52 @@ export default class App extends React.Component {
       }
     }
 
+    decrementQuantity = async (name, attributes) => {
+      await this.setState({
+        test: this.state.test.map(item=>{
+          return(
+            (item.name === name && item.chosenAttributes === attributes)?
+            {
+            allAttributes: item.allAttributes,
+            chosenAttributes: item.chosenAttributes,
+            description: item.description,
+            gallery: item.gallery,
+            name: item.name,
+            prices: item.prices,
+            count: item.count-1
+            }
+            :
+            item
+            )
+          })
+      })
+      localStorage.setItem("cartItem", JSON.stringify(this.state.test.filter(item=>item.count !== 0)))
+      this.setState({test: JSON.parse(localStorage.getItem("cartItem"))})
+    }
+
+    incrementQuantity = async (name, attributes) => {
+      await this.setState({
+        test: this.state.test.map(item=>{
+          return(
+            (item.name === name && item.chosenAttributes === attributes)?
+            {
+            allAttributes: item.allAttributes,
+            chosenAttributes: item.chosenAttributes,
+            description: item.description,
+            gallery: item.gallery,
+            name: item.name,
+            prices: item.prices,
+            count: item.count+1
+            }
+            :item
+            )
+          })
+      })
+      localStorage.setItem("cartItem", JSON.stringify(this.state.test))
+      console.log(JSON.parse(localStorage.getItem("cartItem")))
+    }
+
+    
     handleCurrencyChange = (element) => {
       this.setState({chosenCurrency: element})
     }
@@ -157,6 +201,8 @@ export default class App extends React.Component {
                   data={this.state.data[0]}
                   cartItems={this.state.test}
                   chosenCurrency={this.state.chosenCurrency}
+                  incrementQuantity={this.incrementQuantity}
+                  decrementQuantity={this.decrementQuantity}
                 />
               </Route>
               <Route exact path={"/:id"}>
@@ -170,6 +216,7 @@ export default class App extends React.Component {
           </Router>
           <Menu 
             data={this.state.data}
+            cartItems={this.state.test}
             cartLength={this.state.test.length} 
             handleCurrencyChange={this.handleCurrencyChange} 
             handleCategoryChange={this.handleCategoryChange} 

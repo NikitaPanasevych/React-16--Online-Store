@@ -96,7 +96,7 @@ export default class PDP extends React.Component{
                                    id={index}
                                    attribute={element.id} 
                                    value={prod.value}
-                                   chosenAttr={this.state.selectedAttributeId}
+                                   selectedAttributes={this.state.selectedAttributes}
                                    colorAttr={false}
                                    changeAttribute={this.changeAttributeId}
                                    />)}
@@ -106,12 +106,13 @@ export default class PDP extends React.Component{
                             this.state.colorAttribute.map(element=>
                         <p>
                             {element.id + ":"}
-                            <div className="attributes"> 
+                            <div className="attributes" style={{width: "10em"}}> 
                                 {element.items.map((prod, index)=>
                                     <Attribute  
                                         id={index}
                                         attribute={element.id} 
                                         colorAttr={true}
+                                        selectedAttributes={this.state.selectedAttributes}
                                         value={prod.value}
                                         color={prod.value}
                                         changeAttribute={this.changeAttributeId}

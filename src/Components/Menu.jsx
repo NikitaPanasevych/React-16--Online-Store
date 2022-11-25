@@ -34,7 +34,7 @@ export default class Menu extends React.Component{
     }
 
     static getDerivedStateFromProps(props){
-        return{data: props.data}
+        return{data: props.data, cartItems: props.cartItems}
     }
       
     render(){
@@ -94,7 +94,9 @@ export default class Menu extends React.Component{
                 {this.state.miniCart &&
                         <MiniCart
                         handleClickOutside={this.handleClickOutside} 
-                        cartLength={this.props.cartLength} 
+                        cartLength={this.props.cartLength}
+                        cartItems={this.state.cartItems}
+                        chosenCurrency={this.state.chosenCurrency} 
                         />
                     }
             </div>:null}

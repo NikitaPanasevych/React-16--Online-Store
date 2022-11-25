@@ -6,34 +6,26 @@ import "./cartItem.css";
 export default class CartItem extends React.Component{
     state = {
         chosenImage: 0,
-        itemQuantity: 1,
-        test: {}
+        quantity: 1,
+        total: 0,
+        symbol: ""
     }
 
     componentDidMount(){
-        this.setState({itemQuantity: this.props.itemQuantity})
+        this.setState({
+            total: this.state.quantity*this.props.prices[this.props.chosenCurrency].amount,
+            symbol: this.props.prices[this.props.chosenCurrency].currency.symbol
+        })
+        
     }
 
+
     incrementQuantity = async () => {
-        await this.setState({
-            itemQuantity: this.state.itemQuantity+1, 
-            test: {
-                ...JSON.parse(localStorage.getItem("cartItem"))[this.props.id], 
-                itemQuantity: this.state.itemQuantity+1
-            }
-        })
-        this.props.incrementQuantity(this.state.test)
+        this.props.incrementQuantity(this.props.description ,this.props.chosenAttributes)
     }
 
     decrementQuantity = async () => {
-        if(this.state.itemQuantity > 1){
-        await this.setState({
-            itemQuantity: this.state.itemQuantity-1, 
-            test: {
-                ...JSON.parse(localStorage.getItem("cartItem"))[this.props.id], 
-                itemQuantity: this.state.itemQuantity-1}
-            })
-        this.props.decrementQuantity(this.state.test)}
+        this.props.decrementQuantity(this.props.description ,this.props.chosenAttributes)
     }
 
     render(){
@@ -59,7 +51,12 @@ export default class CartItem extends React.Component{
                                                 <h3>{element.name}:</h3>
                                                 <div className="attributes">
                                                         {element.items.map(color=>
-                                                        <div className="selected">
+                                                        (color.value === this.props.chosenAttributes.find(val=>val.selectedAttribute === "Color").selectedAttributeVal)?
+                                                        <div  className="selected">
+                                                            <div style={{backgroundColor: color.value}} className="color-attribute"></div>
+                                                        </div>
+                                                        :
+                                                        <div style={{borderColor: "white"}} className="selected">
                                                             <div style={{backgroundColor: color.value}} className="color-attribute"></div>
                                                         </div>
                                                         )}
@@ -73,6 +70,11 @@ export default class CartItem extends React.Component{
                                                 <h3>{element.name}:</h3>
                                                 <div className="attributes">
                                                     {element.items.map(attr=>
+                                                        (attr.value === this.props.chosenAttributes.find(val=>val.selectedAttribute === element.name).selectedAttributeVal)?
+                                                        <div style={{backgroundColor: "black", color: "white"}} className="attribute">
+                                                            <h1>{attr.displayValue}</h1>
+                                                        </div>
+                                                        :
                                                         <div className="attribute">
                                                             <h1>{attr.displayValue}</h1>
                                                         </div>
@@ -94,7 +96,7 @@ export default class CartItem extends React.Component{
                         </div>
                         <div className="quantity">
                             <button onClick={this.incrementQuantity}>+</button>
-                            <div>{this.state.itemQuantity}</div>
+                            <div>{this.props.count}</div>
                             <button onClick={this.decrementQuantity}>-</button>
                         </div>
                     </div>

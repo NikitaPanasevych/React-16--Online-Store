@@ -2,11 +2,11 @@
     background-color: white;
     border-style: solid;
     border-width: 1.5px;
+    border-color: white;
     width: 3em;
     display: flex;
     height: 3em;
     cursor: pointer;
-    transform: translate(3.4%, 3%);
 }
 
 .attribute {
@@ -29,7 +29,7 @@
 
 .attribute > h1{
     margin: auto;
-    text-align: center;
+    transform: translate(0%, -3%);
     font: "Source Sans Pro";
     font-size: 1em;
     font-weight: 300;
@@ -40,13 +40,22 @@
 }
 
 .selected{
+    transform: translate(-15%);
     width: 3.4em;
-    height: 3.4em;
+    height: 3.2em;
     position: relative;
     border-color: #5ECE7B;
-    border-width: 2px;
+    border-width: 4px;
     border-style: solid;
-    margin-right: 1em;
     display: flex;
+}
+
+.leftSide > .attributes > .selected{
+    height: 3.4em;
+    width: 3.5em;
+}
+
+.leftSide > .attributes > .selected > .color-attribute {
+    transform: translate(5%, 2%);
 }
 
