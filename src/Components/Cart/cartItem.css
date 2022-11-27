@@ -1,0 +1,115 @@
+.CartItem{
+    display: flex;
+    width: 100%;
+    min-height: 435px;
+}
+
+.CartItem > h1{
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
+.CartItem > h2{
+    font-weight: normal;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
+.leftSide > h3{
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+}
+
+
+.CartItem > p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.leftSide{
+    width:70%;
+    margin-right: 10em;
+    height: 400px;
+}
+
+.leftSide > p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.rightSide{
+    position: relative;
+    height: 435px;
+}
+
+.rightSide > img{
+    height: 350px;
+    width: 350px;
+    transform: translate(0%, 6.7%);
+}
+
+.btnGroup{
+    position: relative;
+    width: 5em;
+    transform: translate(15em, -2em);
+}
+
+.btnGroup > button{
+    width: 2.25em;
+    height: 2.25em;
+    color: white;
+    opacity: 0.8;
+    cursor: pointer;
+    font-weight: 200;
+    background-color: black;
+}
+
+.btnGroup > button:first-child{
+    margin-right: 10px;
+}
+
+
+.quantity{
+    transform: translate(-120%, -102%);
+    height: 22em;
+    width: 3em;
+    display: grid;
+}
+
+.quantity > div{
+    margin: auto;
+    font-size: 25px;
+}
+
+.quantity > button{
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    font-size: 25px;
+    border-width: 0.5px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.quantity > button:last-child{
+    transform: translate(0, 132%);
+}
+
+.CartItem > .leftSide > .attributes > .selected{
+    scale: 0.75;
+    transform: translate(-20%);
+    margin-right: 0em;
+    border-width: 3px;
+}
+
+.CartItem > .leftSide > .attributes > .attribute{
+    width: 4.2em;
+}
+
+.CartItem > .leftSide > .attributes{
+    height: 2em;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+

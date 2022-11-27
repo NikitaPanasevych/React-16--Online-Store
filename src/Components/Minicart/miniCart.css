@@ -1,0 +1,88 @@
+.MiniCart{
+    position: absolute;
+    right: 6rem;
+    top: 6rem;
+    width:28em;
+    height: 40em;
+    background-color: white;
+}
+
+.background{
+    width: 200vh;
+    height: 200vw;
+    opacity: 1;
+    background-color: rgba(57, 55, 72, 0.22);;
+}
+
+.MiniCart > p{
+    font-size: 1.2rem;
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+}
+
+.totalContainer{
+    font-size: 1.2rem;
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+    display: grid;
+    width: 100%;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.Total {
+    position: absolute;
+    right: 1.5rem;
+}
+
+.CheckoutBtns{
+    display: flex;
+    width: 100%;
+    padding-bottom: 1rem;
+
+}
+
+.CheckoutBtns > button{
+    width: 9rem;
+    margin: auto;
+    height: 2.75rem;
+    font-size: large;
+    background-color: white;
+    border-width: 0.1em;
+    cursor: pointer;
+}
+.CheckoutBtns > button:last-child{
+    background-color: #5ECE7B;
+    color: white;
+    border: white;
+}
+
+.MiniCartContainer{
+    height: 26.5em;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.MiniCartContainer > .CartItem{
+    scale: 0.55;
+    transform: translate(-37%, -45%);
+    margin-bottom: -10em;
+
+}
+.MiniCartContainer > hr{
+    display: none;
+}
+
+.MiniCartContainer > .CartItem > .rightSide{
+    position: absolute;
+    right: -20em;
+}
+
+.MiniCartContainer > .CartItem > .leftSide > .attributes > .attribute{
+    height: 2em;
+    width: 2em;
+}

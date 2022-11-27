@@ -1,0 +1,71 @@
+.ItemDescriptionPage{
+    position: absolute;
+    right: 0;
+    display: flex;
+    width: 100vw;
+    height: 87vh;
+    top: 8vh;
+    padding-top: 5vh;
+    justify-content: center;
+}
+
+.Gallery {
+    display: flex;
+    width: 10em;
+    flex-direction: column;
+}
+
+.GalleryElement{
+    width: 6em;
+    height: 6em;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.ProductImage{
+    width: 40em;
+    height: 40em;
+    padding-top: 0.5em;
+}
+
+.ProductDescr, .Brand{
+    margin: 0;
+}
+
+.Brand{
+    font-size: 40px;
+}
+
+.Name{
+    font-size: 25px;
+}
+
+.AddToCartBtn{
+    width: 100%;
+    height: 3em;
+    background-color: #5ECE7B;
+    cursor: pointer;
+    font-size: large;
+    color: white;
+    border: 0;
+}
+
+.ProductDescr{
+    transform: translate(70px, -0px);
+    width: 25em;
+}
+
+.ProductPrice{
+    font: bold;
+    font-family: "Raleway";
+    font-weight: 700;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+
+.attributes{
+    display: flex;
+    height: 4em;
+    margin-top: 0em;
+}

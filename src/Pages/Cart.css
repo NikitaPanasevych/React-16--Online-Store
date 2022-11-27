@@ -1,0 +1,44 @@
+.Cart{
+    background-color: white;
+    position: absolute;
+    top: 10vh;
+    min-height: 80vh;
+    width: 100vw;
+    padding-top: 5vh;
+    display: grid;
+    right: 0;
+}
+
+hr{
+
+}
+
+.Cart > h1 {
+    font-size: 40px;
+    position: absolute;
+    margin-top: 0.8em;
+    padding-left: 8%;
+}
+
+.CartContainer{
+    width: 80vw;
+    margin: auto;
+    margin-top: 5em;
+}
+
+footer{
+    font-size: 20px;
+    margin-left: 10%;
+    margin-bottom: 6em;
+    width: 80%;
+}
+
+footer > button{
+    width: 17.5%;
+    height: 2.5em;
+    background-color: #5ECE7B;
+    cursor: pointer;
+    font-size: large;
+    color: white;
+    border: 0;
+}
