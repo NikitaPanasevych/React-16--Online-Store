@@ -13,7 +13,7 @@ export default class Cart extends React.Component{
     static getDerivedStateFromProps(props, state){
         return{
             cartItems: props.cartItems,
-            /*symbol: props.cartItems[0].prices[props.chosenCurrency].currency.symbol,*/
+            symbol: props.CurrencySymbols[props.chosenCurrency],
             total: props.cartItems.map(e=>e.prices[props.chosenCurrency].amount * e.count).reduce((total, value)=>total=total+value, 0),
             quantity: props.cartItems.map(e=>e.count).reduce((total, value)=>total=total+value, 0)
         }
@@ -48,7 +48,6 @@ export default class Cart extends React.Component{
                                     count={element.count}
                                     chosenCurrency={this.props.chosenCurrency}
                                     id={index}
-                                    update={this.update}
                                     incrementQuantity={this.incrementQuantity}
                                     decrementQuantity={this.decrementQuantity}
                                 />

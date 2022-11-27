@@ -72,6 +72,10 @@
     border-radius: 1em;
 }
 
+.CartBtn > div > p{
+    transform: translate(0, -5%);
+}
+
 .CurrencyDropdown{
     position: absolute;
     transform: translate(-1.5em,0.35em);

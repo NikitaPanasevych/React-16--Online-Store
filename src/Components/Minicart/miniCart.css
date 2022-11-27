@@ -2,7 +2,7 @@
     position: absolute;
     right: 6rem;
     top: 6rem;
-    width: 25em;
+    width:28em;
     height: 40em;
     background-color: white;
 }
@@ -63,11 +63,23 @@
 
 .MiniCartContainer{
     height: 26.5em;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 .MiniCartContainer > .CartItem{
-    scale: 0.5;
+    scale: 0.55;
+    transform: translate(-37%, -45%);
+    margin-bottom: -10em;
+
+}
+.MiniCartContainer > hr{
+    display: none;
+}
+
+.MiniCartContainer > .CartItem > .rightSide{
+    position: absolute;
+    right: -20em;
 }
 
 .MiniCartContainer > .CartItem > .leftSide > .attributes > .attribute{

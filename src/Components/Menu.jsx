@@ -1,4 +1,4 @@
-import "./MenuComponents/Menu.css"
+import "./Menu.css"
 import React from "react";
 import CurrencyDropdown from "./MenuComponents/CurrencyDropdown";
 import storeIcon from "./Icons/a-logo.svg"
@@ -15,7 +15,15 @@ export default class Menu extends React.Component{
             currencyDropdown: false,
             miniCart: false,
             chosenCurrency: 0,
+            chosenCurrencySymbol: "",
             chosenCategory: 0
+        }
+    }
+    
+    static getDerivedStateFromProps(props, state){
+        return{
+            data: props.data,
+            cartItems: props.cartItems
         }
     }
 
@@ -33,8 +41,12 @@ export default class Menu extends React.Component{
         this.props.handleCurrencyChange(clickedItem)
     }
 
-    static getDerivedStateFromProps(props){
-        return{data: props.data, cartItems: props.cartItems}
+    incrementQuantity = (name, attributes) => {
+        this.props.incrementQuantity(name, attributes)
+    }
+
+    decrementQuantity = (name, attributes) => {
+        this.props.decrementQuantity(name, attributes)
     }
       
     render(){
@@ -53,9 +65,9 @@ export default class Menu extends React.Component{
                 </a>
                 <div className="CurrencyBtn"onClick={()=>this.setState({currencyDropdown: !this.state.currencyDropdown})}>
                         {
-                            (this.state.chosenCurrency && this.state.data)?
-                            <div>{this.state.data[0].products[0].prices[this.state.chosenCurrency].currency.symbol}</div>
-                            :null
+                            
+                            <div>{this.props.CurrencySymbols[this.state.chosenCurrency]}</div>
+                            
                         }
                         <svg width="39" height="30" viewBox="0 0 39 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M32 16.5L35 19.5L38 16.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -88,7 +100,9 @@ export default class Menu extends React.Component{
                         <path d="M15.6875 13.9814C14.4875 13.9814 13.498 14.9277 13.498 16.0752C13.498 17.2226 14.4876 18.1689 15.6875 18.1689C16.8875 18.1689 17.877 17.2226 17.877 16.0752C17.8565 14.9284 16.8875 13.9814 15.6875 13.9814ZM15.6875 16.9011C15.2031 16.9011 14.8239 16.5385 14.8239 16.0752C14.8239 15.612 15.2031 15.2493 15.6875 15.2493C16.172 15.2493 16.5512 15.612 16.5512 16.0752C16.5512 16.5188 16.1506 16.9011 15.6875 16.9011Z" fill="#43464E"/>
                     </svg>
                     <div>
-                        {this.props.cartLength}
+                        <p>
+                            {this.props.cartLength}
+                        </p>
                     </div>
                 </div>
                 {this.state.miniCart &&
@@ -96,7 +110,10 @@ export default class Menu extends React.Component{
                         handleClickOutside={this.handleClickOutside} 
                         cartLength={this.props.cartLength}
                         cartItems={this.state.cartItems}
-                        chosenCurrency={this.state.chosenCurrency} 
+                        chosenCurrency={this.state.chosenCurrency}
+                        CurrencySymbols={this.props.CurrencySymbols} 
+                        incrementQuantity={this.incrementQuantity}
+                        decrementQuantity={this.decrementQuantity}
                         />
                     }
             </div>:null}

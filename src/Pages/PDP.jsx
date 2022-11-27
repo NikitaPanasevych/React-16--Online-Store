@@ -28,7 +28,8 @@ export default class PDP extends React.Component{
       }
 
       addToCart = () => {
-        this.props.addToCart(
+        if(this.props.data[0].attributes.length === this.state.selectedAttributes.length)
+        {this.props.addToCart(
             this.props.data[0].brand,
             this.props.data[0].name,
             this.props.data[0].attributes,
@@ -45,7 +46,10 @@ export default class PDP extends React.Component{
                 return 1;
             }
             return 0;
-        }))
+        }))}
+        else{
+            alert("Choose attributes")
+        }
       }
 
       changeImage = (clickedImageId) => {

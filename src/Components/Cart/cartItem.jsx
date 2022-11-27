@@ -90,10 +90,14 @@ export default class CartItem extends React.Component{
                 </div>
                 <div className="rightSide">
                         <img src={this.props.gallery[this.state.chosenImage]} alt="photo" />
+                        {
+                        (this.props.gallery.length > 1)?
                         <div className="btnGroup">
                             <button onClick={()=>this.state.chosenImage > 0 && this.state.chosenImage <=  this.props.gallery.length-1? this.setState({chosenImage: this.state.chosenImage - 1 }):null}>&lt;</button>
                             <button onClick={()=>this.state.chosenImage >= 0 && this.state.chosenImage <  this.props.gallery.length-1? this.setState({chosenImage: this.state.chosenImage + 1 }):null}>&gt;</button> 
                         </div>
+                        :null
+                        }
                         <div className="quantity">
                             <button onClick={this.incrementQuantity}>+</button>
                             <div>{this.props.count}</div>

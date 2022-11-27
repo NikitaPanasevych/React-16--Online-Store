@@ -6,16 +6,32 @@ import CartItem from "../Cart/cartItem";
 
 export default class MiniCart extends React.Component{
     state={
-        cartItems: []
+        cartItems: [],
+        total: 0,
+        symbol: "",
+        quantity: 0
     }
 
 
-    static getDerivedStateFromProps(props){
-        return{cartItems: props.cartItems}
+    static getDerivedStateFromProps(props, state){
+        return{
+            cartItems: props.cartItems,
+            /*symbol: props.cartItems[0].prices[props.chosenCurrency].currency.symbol,*/
+            total: props.cartItems.map(e=>e.prices[props.chosenCurrency].amount * e.count).reduce((total, value)=>total=total+value, 0),
+            quantity: props.cartItems.map(e=>e.count).reduce((total, value)=>total=total+value, 0)
+        }
     }
 
     handleClickOutside = () =>{
         this.props.handleClickOutside();
+    }
+
+    incrementQuantity = (name, attributes) => {
+        this.props.incrementQuantity(name, attributes)
+    }
+
+    decrementQuantity = (name, attributes) => {
+        this.props.decrementQuantity(name, attributes)
     }
 
     render(){
@@ -38,8 +54,11 @@ export default class MiniCart extends React.Component{
                                     chosenAttributes={element.chosenAttributes}
                                     prices={element.prices}
                                     gallery={element.gallery}
+                                    count={element.count}
                                     chosenCurrency={this.props.chosenCurrency}
                                     id={index}
+                                    incrementQuantity={this.incrementQuantity}
+                                    decrementQuantity={this.decrementQuantity}
                                 />
                         </>
                         ):null
@@ -49,12 +68,12 @@ export default class MiniCart extends React.Component{
                             <div className="totalContainer">
                                 <p>
                                     <strong>Total:</strong>
-                                    <strong className="Total">Amount</strong>
+                                    <strong className="Total">{this.state.total} {this.props.CurrencySymbols[this.props.chosenCurrency]}</strong>
                                 </p>
                             </div>
                             <div className="CheckoutBtns">
-                                <button >
-                                    <a href="/cart">View bag</a>
+                                <button href="/cart">
+                                    <a>View bag</a>
                                 </button>
                                 <button >Checkout</button>
                             </div>

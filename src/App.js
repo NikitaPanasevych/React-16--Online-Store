@@ -21,7 +21,7 @@ export default class App extends React.Component {
         chosenCategory: 0,
         openedItemDescription: [],
         chosenCurrency: 0,
-        test: [],
+        CurrencySymbols: [],
         cartItems: []
       }
     }
@@ -66,13 +66,15 @@ export default class App extends React.Component {
         `,
       })
       .then(result => result)
-      this.setState({data: data.data.categories})
+      this.setState({
+        data: data.data.categories,
+        CurrencySymbols: data.data.categories[0].products[0].prices.map(item=>item.currency.symbol)
+      })
     }
 
     componentDidMount(){
       this.query();
-      /*localStorage.setItem('cartItem', JSON.stringify([]))*/
-      this.setState({...this.state.test, test: JSON.parse(localStorage.getItem('cartItem'))})
+      this.setState({...this.state.cartItems, cartItems: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
     addToCart = async (cartItemId,  cartItemDescr, cartItemAttributes, cartItemGallery, cartItemPrices, chosenAttributes) => {
@@ -85,7 +87,7 @@ export default class App extends React.Component {
         )
       {localStorage.setItem("cartItem", JSON.stringify(
         [ 
-        ...this.state.test, 
+        ...this.state.cartItems, 
         {
           name: cartItemId,
           description: cartItemDescr,
@@ -97,7 +99,7 @@ export default class App extends React.Component {
         }
         ]
       ))}
-        this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
+        this.setState({cartItems: JSON.parse(localStorage.getItem('cartItem'))})
     }
 
     handleClick = (element) => {
@@ -112,7 +114,7 @@ export default class App extends React.Component {
       {
         localStorage.setItem("cartItem", JSON.stringify(
           [ 
-          ...this.state.test, 
+          ...this.state.cartItems, 
           {
             name: item[0].brand,
             description: item[0].id,
@@ -124,13 +126,13 @@ export default class App extends React.Component {
           }
           ]
         ))
-        this.setState({test: JSON.parse(localStorage.getItem('cartItem'))})
+        this.setState({cartItems: JSON.parse(localStorage.getItem('cartItem'))})
       }
     }
 
     decrementQuantity = async (name, attributes) => {
       await this.setState({
-        test: this.state.test.map(item=>{
+        cartItems: this.state.cartItems.map(item=>{
           return(
             (item.name === name && item.chosenAttributes === attributes)?
             {
@@ -147,13 +149,13 @@ export default class App extends React.Component {
             )
           })
       })
-      localStorage.setItem("cartItem", JSON.stringify(this.state.test.filter(item=>item.count !== 0)))
-      this.setState({test: JSON.parse(localStorage.getItem("cartItem"))})
+      localStorage.setItem("cartItem", JSON.stringify(this.state.cartItems.filter(item=>item.count !== 0)))
+      this.setState({cartItems: JSON.parse(localStorage.getItem("cartItem"))})
     }
 
     incrementQuantity = async (name, attributes) => {
       await this.setState({
-        test: this.state.test.map(item=>{
+        cartItems: this.state.cartItems.map(item=>{
           return(
             (item.name === name && item.chosenAttributes === attributes)?
             {
@@ -169,7 +171,7 @@ export default class App extends React.Component {
             )
           })
       })
-      localStorage.setItem("cartItem", JSON.stringify(this.state.test))
+      localStorage.setItem("cartItem", JSON.stringify(this.state.cartItems))
       console.log(JSON.parse(localStorage.getItem("cartItem")))
     }
 
@@ -199,8 +201,9 @@ export default class App extends React.Component {
               <Route exact path={"/cart"}>
                 <Cart
                   data={this.state.data[0]}
-                  cartItems={this.state.test}
+                  cartItems={this.state.cartItems}
                   chosenCurrency={this.state.chosenCurrency}
+                  CurrencySymbols={this.state.CurrencySymbols}
                   incrementQuantity={this.incrementQuantity}
                   decrementQuantity={this.decrementQuantity}
                 />
@@ -216,10 +219,13 @@ export default class App extends React.Component {
           </Router>
           <Menu 
             data={this.state.data}
-            cartItems={this.state.test}
-            cartLength={this.state.test.length} 
+            cartItems={this.state.cartItems}
+            cartLength={this.state.cartItems.length} 
+            CurrencySymbols={this.state.CurrencySymbols}
             handleCurrencyChange={this.handleCurrencyChange} 
-            handleCategoryChange={this.handleCategoryChange} 
+            handleCategoryChange={this.handleCategoryChange}
+            incrementQuantity={this.incrementQuantity}
+            decrementQuantity={this.decrementQuantity} 
           />
         </>
       )

@@ -32,6 +32,11 @@
     height: 400px;
 }
 
+.leftSide > p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .rightSide{
     position: relative;
     height: 435px;
