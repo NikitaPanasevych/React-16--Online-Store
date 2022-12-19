@@ -1,4 +1,4 @@
-# junior-react
+# E-commerce App
 
 ![image](https://user-images.githubusercontent.com/62018390/208546294-1468c617-034e-44d3-91d9-e4021a5df270.png)
 ![image](https://user-images.githubusercontent.com/62018390/208546327-97807840-5b27-4efa-a704-4232582bb466.png)
