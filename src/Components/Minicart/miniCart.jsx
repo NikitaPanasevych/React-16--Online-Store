@@ -72,8 +72,8 @@ export default class MiniCart extends React.Component{
                                 </p>
                             </div>
                             <div className="CheckoutBtns">
-                                <button href="/cart">
-                                    <a>View bag</a>
+                                <button >
+                                    <a href="/cart">View bag</a>
                                 </button>
                                 <button >Checkout</button>
                             </div>
