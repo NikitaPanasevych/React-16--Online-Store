@@ -9,7 +9,7 @@ export default class GalleryElement extends React.Component{
     render(){
         return(
             <>
-                <img className=" GalleryElement" onClick={this.changeImage} src={this.props.src} />
+                <img alt="product" className=" GalleryElement" onClick={this.changeImage} src={this.props.src} />
             </>
         )
     }

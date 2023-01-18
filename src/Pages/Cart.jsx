@@ -1,20 +1,22 @@
 import React from "react";
 import CartItem from "../Components/Cart/cartItem";
+import AppContext from "../Context/app.context";
 import "./Cart.css"
 
 export default class Cart extends React.Component{
+    static contextType = AppContext;
+
     state={
         cartItems: [],
         total: 0,
-        symbol: "",
-        quantity: 0
+        quantity: 0,
+        Currency: this.context.Currency
     }
 
     static getDerivedStateFromProps(props, state){
         return{
             cartItems: props.cartItems,
-            symbol: props.CurrencySymbols[props.chosenCurrency],
-            total: props.cartItems.map(e=>e.prices[props.chosenCurrency].amount * e.count).reduce((total, value)=>total=total+value, 0),
+            total: props.cartItems.map(e=>e.prices[state.Currency].amount * e.count).reduce((total, value)=>total=total+value, 0),
             quantity: props.cartItems.map(e=>e.count).reduce((total, value)=>total=total+value, 0)
         }
     }
@@ -28,6 +30,7 @@ export default class Cart extends React.Component{
     }
 
     render(){
+
         return(
         <>
             <div className="Cart">
@@ -46,7 +49,6 @@ export default class Cart extends React.Component{
                                     prices={element.prices}
                                     gallery={element.gallery}
                                     count={element.count}
-                                    chosenCurrency={this.props.chosenCurrency}
                                     id={index}
                                     incrementQuantity={this.incrementQuantity}
                                     decrementQuantity={this.decrementQuantity}
@@ -64,7 +66,7 @@ export default class Cart extends React.Component{
                     </strong></p>
                     <p>Quantity: <strong>{this.state.quantity}</strong></p>
                     <p>Total: <strong>
-                        {Math.round(this.state.total * 100)/100} {this.state.symbol}
+                        {Math.round(this.state.total * 100)/100} {this.props.CurrencySymbols[this.state.Currency]}
                     </strong></p>
                     <button className="">Order</button>
                 </footer>

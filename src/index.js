@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import ContextConsumer from './Context.consumer';
 
 
 const client = new ApolloClient({
@@ -10,9 +10,10 @@ const client = new ApolloClient({
 });
 
 
+
 ReactDOM.render(
     <ApolloProvider client={client}>
-      <App />
+        <ContextConsumer />
     </ApolloProvider>,
   document.getElementById('root')
 );

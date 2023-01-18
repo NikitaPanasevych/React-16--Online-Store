@@ -3,8 +3,11 @@ import "./PDP.css";
 import parse from 'html-react-parser';
 import GalleryElement from "../Components/PDP/galleryElement";
 import Attribute from "../Components/PDP/attributes";
+import AppContext from "../Context/app.context";
 
 export default class PDP extends React.Component{
+    static contextType = AppContext;
+
     constructor(props){
         super(props)
         this.state={
@@ -70,6 +73,8 @@ export default class PDP extends React.Component{
 
 
     render(){
+        const { Currency } = this.context;
+
         return(
             <>
             {this.state.data ?  
@@ -86,7 +91,7 @@ export default class PDP extends React.Component{
                         )}
                     </div>
                     <div >
-                        <img className=" ProductImage" src={this.props.data[0].gallery[this.state.selectedPhoto]}/>
+                        <img alt="product" className=" ProductImage" src={this.props.data[0].gallery[this.state.selectedPhoto]}/>
                     </div>
                     <div className=" ProductDescr">
                         <h1 className="Brand">{this.state.data[0].brand}</h1>
@@ -126,9 +131,9 @@ export default class PDP extends React.Component{
                         </p>)
                         }
                         <p className="ProductPrice">
-                            {this.state.data[0].prices[this.props.chosenCurrency].__typename + ":"}
+                            {this.state.data[0].prices[Currency].__typename + ":"}
                             <br />
-                            {this.state.data[0].prices[this.props.chosenCurrency].currency.symbol + this.state.data[0].prices[this.props.chosenCurrency].amount}
+                            {this.state.data[0].prices[Currency].currency.symbol + this.state.data[0].prices[Currency].amount}
                         </p>
                         <button onClick={this.addToCart} className="AddToCartBtn">ADD TO CART</button>
                         {parse(String(this.state.data[0].description))}

@@ -1,20 +1,22 @@
 import './PLP.css';
 import React from 'react';
 import ProductCard from "../Components/PLP/ProductCard"
+import AppContext from '../Context/app.context';
 
 export default class PLP extends React.Component {
+  static contextType = AppContext;
+
   constructor(props){
     super(props)
     this.state={
       data: [],
-      chosenCategory: 0,
       clickedItemId: ""
     }
   }
 
   static getDerivedStateFromProps(props){
     return({
-      data: props.data[props.chosenCategory]
+      data: props.data
     })
 }
 
@@ -27,6 +29,8 @@ export default class PLP extends React.Component {
   }
 
     render(){
+        const { Currency } = this.context
+        console.log(Currency);
         return(
         <>
            {this.state.data? <div className="Main">
@@ -36,8 +40,8 @@ export default class PLP extends React.Component {
                       <ProductCard 
                     id={element.id}
                     name={element.name}
-                    price={element.prices[this.props.chosenCurrency].amount}
-                    label={element.prices[this.props.chosenCurrency].currency.symbol}
+                    price={element.prices[Currency].amount}
+                    label={element.prices[Currency].currency.symbol}
                     imageUrl={element.gallery[0]}
                     handleClick={this.handleClick}
                     addToCartFromPLP={this.addToCartFromPLP}

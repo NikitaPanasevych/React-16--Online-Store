@@ -1,20 +1,23 @@
-import { getArgumentValues } from "graphql";
 import React from "react";
+import AppContext from "../../Context/app.context";
+
 
 export default class Category extends React.Component{
+    static contextType = AppContext;
 
-    handleCategoryChange = () => {
-        this.props.handleCategoryChange(this.props.id)
-    }
-
-    render(){     
+    render(){
+        const { Category, setCategory} = this.context;
         return(
             <>
                 {
-                    this.props.id === this.props.chosenCategory?
-                    <div style={{color: "#5ECE7B"}} onClick={this.handleCategoryChange}>{this.props.name}</div>
+                    this.props.id === Category?
+                    <a onClick={()=>setCategory(this.props.id)} href={"/"+this.props.name} style={{color: "#5ECE7B"}}>
+                        <div>{this.props.name}</div>
+                    </a>
                     :
-                    <div style={{borderBottomWidth: "0px"}} onClick={this.handleCategoryChange}>{this.props.name}</div>
+                    <a href={"/"+this.props.name} style={{borderBottomWidth: "0px"}} onClick={()=>setCategory(this.props.id)}>
+                        <div>{this.props.name}</div>
+                    </a>
                 }
             </>
         )

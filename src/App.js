@@ -1,10 +1,12 @@
 import React from 'react';
 import Menu from "./Components/Menu";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { BrowserRouter as Router, Switch, Route,  } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
 import Cart from './Pages/Cart';
+import AppContext from './Context/app.context';
+
 
 
 
@@ -13,14 +15,14 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default class App extends React.Component {
+class App extends React.Component {
+    static contextType = AppContext;
+
     constructor(props){
       super(props)
       this.state = {
         data: [],
-        chosenCategory: 0,
         openedItemDescription: [],
-        chosenCurrency: 0,
         CurrencySymbols: [],
         cartItems: []
       }
@@ -74,7 +76,8 @@ export default class App extends React.Component {
 
     componentDidMount(){
       this.query();
-      this.setState({...this.state.cartItems, cartItems: JSON.parse(localStorage.getItem('cartItem'))})
+      this.setState({...this.state.cartItems, cartItems: JSON.parse(localStorage.getItem('cartItem'))});
+
     }
 
     addToCart = async (cartItemId,  cartItemDescr, cartItemAttributes, cartItemGallery, cartItemPrices, chosenAttributes) => {
@@ -104,7 +107,7 @@ export default class App extends React.Component {
 
     handleClick = (element) => {
       this.setState({ 
-        openedItemDescription: this.state.data[this.state.chosenCategory].products.filter((val)=>val.id === element)
+        openedItemDescription: this.state.data[this.context.Category].products.filter((val)=>val.id === element)
       })
     }
 
@@ -180,21 +183,31 @@ export default class App extends React.Component {
       this.setState({chosenCurrency: element})
     }
 
-    handleCategoryChange = (element) => {
-      this.setState({chosenCategory: element})
-    }
-
     render(){
+      const { Category, Currency } = this.context;
+      console.log(Currency);
       return(
         <>
           <Router>
             <Switch>
-              <Route exact path='/'>
+            <Route exact path={["/", "/all"]}>
                 <PLP 
-                  data={this.state.data} 
-                  chosenCategory={this.state.chosenCategory} 
+                  data={this.state.data[Category]} 
                   handleClick={this.handleClick}
-                  chosenCurrency={this.state.chosenCurrency}
+                  addToCartFromPLP={this.addToCartFromPLP}
+                 />
+              </Route>
+              <Route exact path={"/clothes"}>
+                <PLP 
+                  data={this.state.data[Category]} 
+                  handleClick={this.handleClick}
+                  addToCartFromPLP={this.addToCartFromPLP}
+                 />
+              </Route>
+              <Route exact path={"/tech"}>
+                <PLP 
+                  data={this.state.data[Category]} 
+                  handleClick={this.handleClick}
                   addToCartFromPLP={this.addToCartFromPLP}
                  />
               </Route>
@@ -202,7 +215,6 @@ export default class App extends React.Component {
                 <Cart
                   data={this.state.data[0]}
                   cartItems={this.state.cartItems}
-                  chosenCurrency={this.state.chosenCurrency}
                   CurrencySymbols={this.state.CurrencySymbols}
                   incrementQuantity={this.incrementQuantity}
                   decrementQuantity={this.decrementQuantity}
@@ -211,7 +223,6 @@ export default class App extends React.Component {
               <Route exact path={"/:id"}>
                 <PDP 
                   data={this.state.openedItemDescription} 
-                  chosenCurrency={this.state.chosenCurrency}
                   addToCart={this.addToCart}  
                 />
               </Route>
@@ -220,10 +231,7 @@ export default class App extends React.Component {
           <Menu 
             data={this.state.data}
             cartItems={this.state.cartItems}
-            cartLength={this.state.cartItems.length} 
             CurrencySymbols={this.state.CurrencySymbols}
-            handleCurrencyChange={this.handleCurrencyChange} 
-            handleCategoryChange={this.handleCategoryChange}
             incrementQuantity={this.incrementQuantity}
             decrementQuantity={this.decrementQuantity} 
           />
@@ -231,3 +239,6 @@ export default class App extends React.Component {
       )
     }
   }
+
+
+export default App;

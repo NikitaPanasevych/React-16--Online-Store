@@ -2,9 +2,12 @@ import React from "react";
 import "./miniCart.css";
 import OutsideAlerter from "../MenuComponents/OutsideAlert";
 import CartItem from "../Cart/cartItem";
+import AppContext from "../../Context/app.context";
 
 
 export default class MiniCart extends React.Component{
+    static contextType = AppContext;
+
     state={
         cartItems: [],
         total: 0,
@@ -16,7 +19,6 @@ export default class MiniCart extends React.Component{
     static getDerivedStateFromProps(props, state){
         return{
             cartItems: props.cartItems,
-            /*symbol: props.cartItems[0].prices[props.chosenCurrency].currency.symbol,*/
             total: props.cartItems.map(e=>e.prices[props.chosenCurrency].amount * e.count).reduce((total, value)=>total=total+value, 0),
             quantity: props.cartItems.map(e=>e.count).reduce((total, value)=>total=total+value, 0)
         }
@@ -35,12 +37,19 @@ export default class MiniCart extends React.Component{
     }
 
     render(){
+        const {Currency} = this.context;
+
         return(
         <>
             <div className="background"></div>
             <OutsideAlerter handleClickOutside={this.handleClickOutside}>
                 <div className="MiniCart">
-                    <p><strong>My Bag:</strong> { this.props.cartLength} Items</p>
+                    <p>
+                        <strong>My Bag:</strong>   {this.props.cartLength}  { 
+                            this.props.cartLength === 1? 
+                            <span>Item</span> : <span>Items</span>
+                        }
+                    </p>
                     <div className="MiniCartContainer">
                     {this.state.cartItems?
                     this.state.cartItems.map(
@@ -55,7 +64,6 @@ export default class MiniCart extends React.Component{
                                     prices={element.prices}
                                     gallery={element.gallery}
                                     count={element.count}
-                                    chosenCurrency={this.props.chosenCurrency}
                                     id={index}
                                     incrementQuantity={this.incrementQuantity}
                                     decrementQuantity={this.decrementQuantity}
@@ -68,7 +76,7 @@ export default class MiniCart extends React.Component{
                             <div className="totalContainer">
                                 <p>
                                     <strong>Total:</strong>
-                                    <strong className="Total">{this.state.total} {this.props.CurrencySymbols[this.props.chosenCurrency]}</strong>
+                                    <strong className="Total">{this.state.total} {this.props.CurrencySymbols[Currency]}</strong>
                                 </p>
                             </div>
                             <div className="CheckoutBtns">

@@ -1,9 +1,11 @@
 import React from "react";
+import AppContext from "../../Context/app.context";
 import "./cartItem.css";
 
 
 
 export default class CartItem extends React.Component{
+    static contextType = AppContext;
     state = {
         chosenImage: 0,
         quantity: 1,
@@ -12,9 +14,10 @@ export default class CartItem extends React.Component{
     }
 
     componentDidMount(){
+        console.log(this.context.Currency)
         this.setState({
-            total: this.state.quantity*this.props.prices[this.props.chosenCurrency].amount,
-            symbol: this.props.prices[this.props.chosenCurrency].currency.symbol
+            total: this.state.quantity*this.props.prices[this.context.Currency].amount,
+            symbol: this.props.prices[this.context.Currency].currency.symbol
         })
         
     }
@@ -37,8 +40,8 @@ export default class CartItem extends React.Component{
                         <h2>{this.props.description}</h2>
                         {
                             <p>
-                                {this.props.prices[this.props.chosenCurrency].currency.symbol}
-                                {this.props.prices[this.props.chosenCurrency].amount}
+                                {this.props.prices[this.context.Currency].currency.symbol}
+                                {this.props.prices[this.context.Currency].amount}
                             </p>
                         }
                         {
@@ -89,7 +92,7 @@ export default class CartItem extends React.Component{
                         }
                 </div>
                 <div className="rightSide">
-                        <img src={this.props.gallery[this.state.chosenImage]} alt="photo" />
+                        <img src={this.props.gallery[this.state.chosenImage]} alt="product" />
                         {
                         (this.props.gallery.length > 1)?
                         <div className="btnGroup">

@@ -5,18 +5,18 @@ import storeIcon from "./Icons/a-logo.svg"
 import Category from "./MenuComponents/Category";
 import MiniCart from "./Minicart/miniCart";
 import OutsideAlerter from "./MenuComponents/OutsideAlert";
+import AppContext from "../Context/app.context";
 
 
 export default class Menu extends React.Component{
+    static contextType = AppContext;
+
     constructor(props){
         super(props)
         this.state={
             data: [],
             currencyDropdown: false,
-            miniCart: false,
-            chosenCurrency: 0,
-            chosenCurrencySymbol: "",
-            chosenCategory: 0
+            miniCart: false
         }
     }
     
@@ -27,18 +27,8 @@ export default class Menu extends React.Component{
         }
     }
 
-    handleCategoryChange = (clickedItem) => {
-        this.setState({chosenCategory: clickedItem})
-        this.props.handleCategoryChange(clickedItem)
-    }
-
     handleClickOutside = () =>{
         this.setState({currencyDropdown: false, miniCart: false})
-    }
-
-    handleCurrencyChange = (clickedItem) => {
-        this.setState({chosenCurrency: clickedItem})
-        this.props.handleCurrencyChange(clickedItem)
     }
 
     incrementQuantity = (name, attributes) => {
@@ -50,6 +40,8 @@ export default class Menu extends React.Component{
     }
       
     render(){
+    const {Currency} = this.context;
+
         return(
             <>
             {this.state.data? <div className="Menu" >
@@ -57,8 +49,7 @@ export default class Menu extends React.Component{
                     {this.state.data.map((element, index) =>
                     <Category name={element.name} 
                     id={index}
-                    chosenCategory={this.state.chosenCategory} 
-                    handleCategoryChange={this.handleCategoryChange} />)}
+                    />)}
                 </div>
                 <a href="/" className="StoreIcon">
                     <img src={storeIcon} alt="Store Icon" />
@@ -66,7 +57,7 @@ export default class Menu extends React.Component{
                 <div className="CurrencyBtn"onClick={()=>this.setState({currencyDropdown: !this.state.currencyDropdown})}>
                         {
                             
-                            <div>{this.props.CurrencySymbols[this.state.chosenCurrency]}</div>
+                            <div>{this.props.CurrencySymbols[Currency]}</div>
                             
                         }
                         <svg width="39" height="30" viewBox="0 0 39 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +73,6 @@ export default class Menu extends React.Component{
                                     label={element.currency.label}
                                     id={index} 
                                     symbol={element.currency.symbol}
-                                    handleCurrencyChange={this.handleCurrencyChange} 
                                     />
                                 )
                             }
@@ -101,16 +91,16 @@ export default class Menu extends React.Component{
                     </svg>
                     <div>
                         <p>
-                            {this.props.cartLength}
+                            {this.state.cartItems.length}
                         </p>
                     </div>
                 </div>
                 {this.state.miniCart &&
                         <MiniCart
                         handleClickOutside={this.handleClickOutside} 
-                        cartLength={this.props.cartLength}
+                        cartLength={this.state.cartItems.length}
                         cartItems={this.state.cartItems}
-                        chosenCurrency={this.state.chosenCurrency}
+                        chosenCurrency={Currency}
                         CurrencySymbols={this.props.CurrencySymbols} 
                         incrementQuantity={this.incrementQuantity}
                         decrementQuantity={this.decrementQuantity}
