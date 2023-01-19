@@ -36,9 +36,10 @@ export default class PLP extends React.Component {
            {this.state.data? <div className="Main">
                 <h1 className=' CategoryName'>{this.state.data.name}</h1>
                 <div className="Container">
-                    {this.state.data.products.map(element =>
+                    {this.state.data.products.map((element, index) =>
                       <ProductCard 
                     id={element.id}
+                    key={index}
                     name={element.name}
                     price={element.prices[Currency].amount}
                     label={element.prices[Currency].currency.symbol}

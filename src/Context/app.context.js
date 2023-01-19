@@ -25,10 +25,8 @@ export class AppContextProvider extends React.Component {
             <Provider value={{
                 Category: this.state.Category,
                 Currency: this.state.Currency,
-                OpenedItem: this.state.OpenedItem,
                 setCategory: this.setCategory,
                 setCurrency: this.setCurrency,
-                setOpenedItem: this.setOpenedItem,
                 }}
             >
                 {this.props.children}

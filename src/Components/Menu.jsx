@@ -49,6 +49,7 @@ export default class Menu extends React.Component{
                     {this.state.data.map((element, index) =>
                     <Category name={element.name} 
                     id={index}
+                    key={index}
                     />)}
                 </div>
                 <a href="/" className="StoreIcon">
@@ -69,7 +70,8 @@ export default class Menu extends React.Component{
                                 this.state.data[0].products[0].prices.map((element, index) => 
                                     <CurrencyDropdown
                                     label={element.currency.label}
-                                    id={index} 
+                                    id={index}
+                                    key={index} 
                                     symbol={element.currency.symbol}
                                     />
                                 )
