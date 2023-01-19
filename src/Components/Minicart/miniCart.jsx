@@ -45,7 +45,7 @@ export default class MiniCart extends React.Component{
             <OutsideAlerter handleClickOutside={this.handleClickOutside}>
                 <div className="MiniCart">
                     <p>
-                        <strong>My Bag:</strong>   {this.props.cartLength}  { 
+                        <strong>My Bag:</strong>   {this.state.cartItems.length}  { 
                             this.props.cartLength === 1? 
                             <span>Item</span> : <span>Items</span>
                         }

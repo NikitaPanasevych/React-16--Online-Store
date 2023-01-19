@@ -30,7 +30,7 @@ export default class PLP extends React.Component {
 
     render(){
         const { Currency } = this.context
-        console.log(Currency);
+
         return(
         <>
            {this.state.data? <div className="Main">

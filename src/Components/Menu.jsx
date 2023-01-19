@@ -56,9 +56,7 @@ export default class Menu extends React.Component{
                 </a>
                 <div className="CurrencyBtn"onClick={()=>this.setState({currencyDropdown: !this.state.currencyDropdown})}>
                         {
-                            
                             <div>{this.props.CurrencySymbols[Currency]}</div>
-                            
                         }
                         <svg width="39" height="30" viewBox="0 0 39 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M32 16.5L35 19.5L38 16.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,7 +96,6 @@ export default class Menu extends React.Component{
                 {this.state.miniCart &&
                         <MiniCart
                         handleClickOutside={this.handleClickOutside} 
-                        cartLength={this.state.cartItems.length}
                         cartItems={this.state.cartItems}
                         chosenCurrency={Currency}
                         CurrencySymbols={this.props.CurrencySymbols} 

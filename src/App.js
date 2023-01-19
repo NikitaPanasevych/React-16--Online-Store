@@ -9,7 +9,6 @@ import AppContext from './Context/app.context';
 
 
 
-
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:4000',
   cache: new InMemoryCache(),
@@ -77,7 +76,6 @@ class App extends React.Component {
     componentDidMount(){
       this.query();
       this.setState({...this.state.cartItems, cartItems: JSON.parse(localStorage.getItem('cartItem'))});
-
     }
 
     addToCart = async (cartItemId,  cartItemDescr, cartItemAttributes, cartItemGallery, cartItemPrices, chosenAttributes) => {
@@ -178,14 +176,11 @@ class App extends React.Component {
       console.log(JSON.parse(localStorage.getItem("cartItem")))
     }
 
-    
-    handleCurrencyChange = (element) => {
-      this.setState({chosenCurrency: element})
-    }
+
 
     render(){
-      const { Category, Currency } = this.context;
-      console.log(Currency);
+      const { Category } = this.context;
+
       return(
         <>
           <Router>

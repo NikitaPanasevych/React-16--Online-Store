@@ -8,7 +8,6 @@ export default class ContextConsumer extends React.Component{
         if(JSON.parse(localStorage.getItem("Category")) === null){
             localStorage.setItem("Category", JSON.stringify(0))
         }
-
         if(JSON.parse(localStorage.getItem("Currency")) === null){
             localStorage.setItem("Currency", JSON.stringify(0))
         }
