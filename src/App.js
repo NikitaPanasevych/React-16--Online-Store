@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from './Components/Menu';
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+/*import { ApolloClient, InMemoryCache, gql } from '@apollo/client';*/
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
@@ -8,10 +8,10 @@ import Cart from './Pages/Cart';
 import AppContext from './Context/app.context';
 import { data } from './data';
 
-const apolloClient = new ApolloClient({
+/*const apolloClient = new ApolloClient({
    uri: 'http://localhost:4000',
    cache: new InMemoryCache(),
-});
+});*/
 
 class App extends React.Component {
    static contextType = AppContext;
