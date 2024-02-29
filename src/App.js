@@ -6,6 +6,8 @@ import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
 import Cart from './Pages/Cart';
 import AppContext from './Context/app.context';
+import './index.css';
+import Footer from './Components/Footer/Footer';
 
 const apolloClient = new ApolloClient({
 	uri: 'http://localhost:4000',
@@ -250,6 +252,7 @@ class App extends React.Component {
 					incrementQuantity={this.incrementQuantity}
 					decrementQuantity={this.decrementQuantity}
 				/>
+				<Footer />
 			</>
 		);
 	}

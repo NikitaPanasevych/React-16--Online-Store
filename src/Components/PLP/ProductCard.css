@@ -1,23 +1,26 @@
 .Card {
     width: 10em;
     font-size: 40px;
-    height: 12em;
-    padding: 0.5em;
+    height: 14em;
+    padding: 1em;
     margin: 1em;
+    
 }
 .Card:hover {
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.Card > div{
+.Card__btn{
     display: none;
+    background: none;
+    border: none;
     height: 74px;
     width: 74px;
     transform: translate(7em, -3.5em);
 }
 
-.Card:hover div{
+.Card:hover .Card__btn{
     display: block;
 }
 
