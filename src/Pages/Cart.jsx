@@ -48,7 +48,7 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<>
-				<div className="Cart">
+				<div className="Cart pt-[15vh]">
 					<h1>CART</h1>
 					<div className="CartContainer">
 						{this.state.cartItems

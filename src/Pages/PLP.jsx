@@ -1,4 +1,3 @@
-import './PLP.css';
 import React from 'react';
 import ProductCard from '../Components/PLP/ProductCard';
 import AppContext from '../Context/app.context';
@@ -34,12 +33,12 @@ export default class PLP extends React.Component {
 		return (
 			<>
 				{this.state.data ? (
-					<div className="Main ">
-						<h1 className=" CategoryName">
+					<div className="Main pt-[15vh] p-56">
+						<h1 className=" CategoryName text-[2rem]">
 							store {'>'} {this.state.data.name}
 							<hr />
 						</h1>
-						<div className="grid grid-cols-3 ">
+						<div className="grid grid-cols-3 gap-20 p-10">
 							{this.state.data.products.map((element, index) => (
 								<ProductCard
 									id={element.id}

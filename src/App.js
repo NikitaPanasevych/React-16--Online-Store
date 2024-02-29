@@ -200,7 +200,6 @@ class App extends React.Component {
 			}),
 		});
 		localStorage.setItem('cartItem', JSON.stringify(this.state.cartItems));
-		console.log(JSON.parse(localStorage.getItem('cartItem')));
 	};
 
 	render() {
@@ -208,6 +207,13 @@ class App extends React.Component {
 
 		return (
 			<>
+				<Menu
+					data={this.state.data}
+					cartItems={this.state.cartItems}
+					CurrencySymbols={this.state.CurrencySymbols}
+					incrementQuantity={this.incrementQuantity}
+					decrementQuantity={this.decrementQuantity}
+				/>
 				<Router>
 					<Switch>
 						<Route exact path={['/', '/all']}>
@@ -245,14 +251,6 @@ class App extends React.Component {
 						</Route>
 					</Switch>
 				</Router>
-				<Menu
-					data={this.state.data}
-					cartItems={this.state.cartItems}
-					CurrencySymbols={this.state.CurrencySymbols}
-					incrementQuantity={this.incrementQuantity}
-					decrementQuantity={this.decrementQuantity}
-				/>
-				<Footer />
 			</>
 		);
 	}

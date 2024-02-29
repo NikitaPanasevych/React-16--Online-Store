@@ -78,7 +78,7 @@ export default class PDP extends React.Component {
 		return (
 			<>
 				{this.state.data ? (
-					<div className=" ItemDescriptionPage">
+					<div className=" ItemDescriptionPage pt-[15vh] p-56">
 						<div className=" Gallery">
 							{this.props.data[0]?.gallery.map((element, index) => (
 								<GalleryElement

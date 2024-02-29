@@ -14,22 +14,28 @@ export default class ProductCard extends React.Component {
 
 	render() {
 		return (
-			<div className="Card ">
+			<div className="ProductCard p-10 hover:shadow-lg text-3xl">
 				<Link to={'/' + this.props.id}>
 					<div className=" grid " onClick={this.handleClick}>
-						<img className="photo" alt="Product display" src={this.props.imageUrl} />
+						<div className=" min-h-[50rem]">
+							<img
+								className=" w-full h-auto max-h-[50rem] object-fill"
+								src={this.props.imageUrl}
+								alt={this.props.name}
+							/>
+						</div>
 						<div className=" flex justify-between">
 							<div>
-								<span className=" Description ">{this.props.name}</span>
-								<h2 className=" Price">
+								<span className="ProductCard__name">{this.props.name}</span>
+								<h2>
 									{this.props.price} {this.props.label}
 								</h2>
 							</div>
 							<button
-								className="p-5 h-16 w-16 flex justify-center rounded-full transition-all duration-200 bg-[#1ED760] font-bold text-white tracking-widest uppercase transform hover:scale-110 hover:bg-[#21e065]"
+								className="ProductCard__btn hidden w-20 h-20 rounded-md transition-all duration-200 bg-[#1ED760] font-bold text-white tracking-widest uppercase transform hover:scale-110 hover:bg-[#21e065]"
 								onClick={this.addToCartFromPLP}
 							>
-								<FaShoppingCart className=" translate-y-[-0.4rem]" />
+								<FaShoppingCart className=" w-6 h-6 translate-x-7" />
 							</button>
 						</div>
 					</div>

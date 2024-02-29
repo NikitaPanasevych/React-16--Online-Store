@@ -40,7 +40,7 @@ export default class MiniCart extends React.Component {
 		const { Currency } = this.context;
 
 		return (
-			<>
+			<div className=" w-[100vw] h=[100vh] absolute">
 				<div className="background"></div>
 				<OutsideAlerter handleClickOutside={this.handleClickOutside}>
 					<div className="MiniCart">
@@ -87,7 +87,7 @@ export default class MiniCart extends React.Component {
 						</div>
 					</div>
 				</OutsideAlerter>
-			</>
+			</div>
 		);
 	}
 }

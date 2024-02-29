@@ -1,16 +1,6 @@
 .Cart{
     background-color: white;
-    position: absolute;
-    top: 10vh;
-    min-height: 80vh;
-    width: 100vw;
-    padding-top: 5vh;
     display: grid;
-    right: 0;
-}
-
-hr{
-
 }
 
 .Cart > h1 {
